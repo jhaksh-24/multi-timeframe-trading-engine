@@ -16,36 +16,27 @@ The objective of this project plays on four fronts which are as follows:
 
 ---
 
-## High Level Architecture  
-
+## Project Structure
+```plaintext
 Multi Timeframe Strategy Execution & Trade Matching
-├── data
-│ ├── init.py
-│ ├── market_data.py
-│ └── pycache
-│ ├── init.cpython-313.pyc
-│ └── market_data.cpython-313.pyc
-├── execution
-│ ├── backtest.py
-│ ├── init.py
-│ ├── live.py
-│ └── pycache
-│ ├── backtest.cpython-313.pyc
-│ ├── engine.cpython-313.pyc
-│ ├── init.cpython-313.pyc
-│ └── live.cpython-313.pyc
-├── logs
-│ ├── backtest_trades.csv
-│ ├── backup_live_trades.csv
-│ └── live_trades.csv
-├── README.md
-└── strategy
-├── init.py
-├── pycache
-│ ├── init.cpython-313.pyc
-│ └── strategy.cpython-313.pyc
-└── strategy.py
-
+├── data/
+│   ├── __init__.py
+│   └── market_data.py          # yfinance data fetcher
+├── execution/
+│   ├── __init__.py
+│   ├── backtest.py              # Backtesting engine
+│   └── live.py                  # Live trading via Binance Testnet
+├── strategy/
+│   ├── __init__.py
+│   └── strategy.py              # Core EMA logic
+├── logs/
+│   ├── backtest_trades.csv
+│   └── live_trades.csv
+├── .env                         # API credentials (gitignored)
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
 
 ---
 
@@ -159,8 +150,10 @@ Before running, you must configure your Binance Testnet API keys.
 
 Create a file named `.env` in the project root and add:
 
+```bash
 BINANCE_API_KEY_TEST=your_testnet_api_key
 BINANCE_API_SECRET_TEST=your_testnet_api_secret
+```
 
 
 These credentials are:
@@ -169,18 +162,20 @@ These credentials are:
 
 ### Step 2 : Install Dependencies  
 
+```bash
 pip install -r requirements.txt
+```
 
 ### Step 3 : Run Backtest or Live Trading  
 
 To run the backtest:
-
+```bash
 python -m execution.backtest
-
+```
 To run live trading:
-
+```bash
 python -m execution.live
-
+```
 
 ---
 
