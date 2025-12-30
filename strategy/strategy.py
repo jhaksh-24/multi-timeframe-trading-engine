@@ -1,15 +1,4 @@
-class Strategy:
-    '''
-    def eval(self, short_open, short_close, long_open, long_close):
-        if short_close > short_open and long_close > long_open:
-            return ("BUY", 1)
-
-        
-        if short_close < short_open:
-            return ("EXIT", 1)
-
-        return ("HOLD", 0)
-    '''
+class EMAStrategy:
 
     def __init__(self):
         self.prices = []
@@ -48,4 +37,3 @@ class Strategy:
         
         return (alpha * new_price) + ((1-alpha) * ema_old)
             
-
