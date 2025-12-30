@@ -31,7 +31,7 @@ class LiveTest:
     def run(self):
 
         start_time = time.time()
-        max_duration = 25 * 60
+        max_duration = 5 * 60 * 60
 
         while time.time() - start_time < max_duration:
             ticker = self.client.get_symbol_ticker(symbol=self.symbol)
@@ -76,7 +76,7 @@ class LiveTest:
                 self.entry_price = None
                 print("SELL executed")            
 
-            time.sleep(1)
+            time.sleep(60)
 
 
 if __name__ == "__main__":
