@@ -1,6 +1,6 @@
 yfinance
 pandas
 numpy
-bactesting
+backtesting
 python-binance
 python-dotenv

@@ -60,5 +60,5 @@ trades_df["Direction"] = trades_df["Size"].apply(
 )
 
 # Exporting trade log
-trades_df.to_csv("logs/backtest_trade.csv", index=False)
+trades_df.to_csv("logs/backtest_trades.csv", index=False)
 
