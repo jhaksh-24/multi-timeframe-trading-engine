@@ -8,6 +8,7 @@ from strategy.strategy import EMAStrategy
 
 class LiveTest:
     def __init__(self):
+        # Initializing live trading client with Binance testnet credentials
         load_dotenv()
 
         api_key = os.getenv("BINANCE_API_KEY_TEST")
@@ -24,16 +25,19 @@ class LiveTest:
 
         self.csv_file = "logs/live_trades.csv"
 
+        # Creating CSV with headers if it doesn't exist
         if not os.path.exists(self.csv_file):
             with open(self.csv_file, "w") as f:
                 f.write("EntryTime,ExitTime,EntryPrice,ExitPrice,Size,Symbol,Direction\n")
 
     def run(self):
 
+        # Executing live trading loop for 25 minutes that is time frame = 25 minutes
         start_time = time.time()
-        max_duration = 5 * 60 * 60
+        max_duration = 25*60
 
         while time.time() - start_time < max_duration:
+            # Fetching current market price
             ticker = self.client.get_symbol_ticker(symbol=self.symbol)
             price = float(ticker["price"])
 
@@ -41,6 +45,7 @@ class LiveTest:
 
             print(f"{datetime.utcnow()} | Price: {price} | Signal: {signal}")
 
+            # Entering position on buy signal
             if signal == "BUY" and not self.in_position:
                 self.client.order_market_buy(
                     symbol=self.symbol,
@@ -51,6 +56,7 @@ class LiveTest:
                 self.entry_price = price
                 print("BUY executed")
 
+            # Exiting position and logging trade
             elif signal == "EXIT" and self.in_position:
                 exit_time = datetime.now(UTC)
                 exit_price = price
@@ -76,7 +82,7 @@ class LiveTest:
                 self.entry_price = None
                 print("SELL executed")            
 
-            time.sleep(60)
+            time.sleep(1)
 
 
 if __name__ == "__main__":
